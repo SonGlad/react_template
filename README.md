@@ -14,11 +14,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
@@ -29,42 +24,55 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### `lint:js`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The script "lint:js": "eslint src/**/*.{js,jsx}" runs the JavaScript and JSX code static analysis tool called ESLint on all files with the extensions .js and .jsx located within the src folder of your project.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Description
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+This setup is fully configured to work with both small and large projects. All settings are already adjusted to work with Single Page Apps for GitHub Pages as well as with react-router-dom for routing.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Getting Started
 
-## Learn More
+1. Make sure that the LTS version of Node.js is installed on your computer.
+   Download and install it if necessary.
+2. Install the project's basic dependencies by running the command npm install.
+   Start the development mode by executing the command npm start.
+3. Open your browser and navigate to http://localhost:3000.
+   This page will automatically reload after saving changes to project files.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Deployment
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The production version of the project will automatically undergo linting, be built, and deployed to GitHub Pages into the gh-pages branch every time the main branch is updated. For example, after a direct push or a merged pull request. To enable this, edit the homepage field in the package.json file, replacing your_username and your_repo_name with your own, and push the changes to GitHub.
 
-### Code Splitting
+```json
+"homepage": "https://your_username.github.io/your_repo_name/"
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Routing
 
-### Analyzing the Bundle Size
+If your application uses the react-router-dom library for routing, you need to additionally configure the <BrowserRouter> component by passing the exact name of your repository in the basename prop. The slash at the beginning of the string is mandatory.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```jsx
+<BrowserRouter basename="/your_repo_name">
+  <App />
+</BrowserRouter>
+```
 
-### Making a Progressive Web App
+## Production Build (not for GitHub)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### To create a production version (not for GitHub):
 
-### Advanced Configuration
+1. In the package.json file, you will need to remove the homepage field, because    if you don't, the Production Build will succeed, but the base URL reading will be   incorrect, resulting in a blank page instead of your working application.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```json
+"homepage": "https://your_username.github.io/your_repo_name/"
+```
 
-### Deployment
+2. In the index.js file, you will need to remove passing the basename prop to the <BrowserRouter> component, along with the exact name of your repository. This is because during Production Build, this will also lead to incorrect base URL reading, resulting in a blank page instead of your working application.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```jsx
+<BrowserRouter basename="/your_repo_name">
+  <App />
+</BrowserRouter>
+```  
